@@ -19,26 +19,21 @@
 				<hr>
 				<table class="table table-borderless table-hover">
 					<tr>
+						<th class = "hide">id</th>
 						<th>Name</th>
 						<th>Ingredients</th>
 						<th>Price</th>
-
-					<?php if(session()->get('role') == 1) :?>
-						<th>Action</th>
-					<?php endif; ?>
-
 					</tr>
-					
-					
 					<?php foreach($dataPizza as $values) :?>
 					<tr>
+					<td class="hide"><?= $values['id']; ?></td>
 						<td class="pizzaName"><?= $values['name']; ?></td>
 						<td><?= $values['ingredients']; ?></td>
 						<td class="text-success font-weight-bolder"><?= $values['prize']; ?> $</td>
 						<td>
 
 						<?php if(session()->get('role') == 1) :?>
-							<a href="pizza/editPizza/<?= $values['id']; ?>" data-toggle="modal" data-target="#updatePizza"><i class="material-icons text-info" data-toggle="tooltip" title="Edit Pizza!" data-placement="left">edit</i></a>
+							<a href="pizza/editPizza/<?= $values['id']; ?>" data-toggle="modal" data-target="#updatePizza"><i class="material-icons text-info editPizza" data-toggle="tooltip" title="Edit Pizza!" data-placement="left">edit</i></a>
 							<a href="pizza/deletePizza/<?= $values['id']; ?>" data-toggle="tooltip" title="Delete Pizza!" data-placement="right"><i class="material-icons text-danger">delete</i></a>
 						<?php endif; ?>
 
@@ -103,17 +98,17 @@
         
         <!-- Modal body -->
 		<div class="modal-body text-right">
-			<form  action="" method="post">
+			<form  action="pizza/updatePeperoni" method="post">
 				<div class="form-group">
-					<input type="text" name="name" class="form-control">
+					<input type="text" name="name" id="pname" class="form-control">
 				</div>
 				<div class="form-group">
-					<input type="number" name="prize" class="form-control" value="100">
+					<input type="text" name="prize" id="pprize" class="form-control">
 				</div>
 				<div class="form-group">
-					<textarea name="ingredients" class="form-control"></textarea>
+					<textarea name="ingredients" id="pingredients" class="form-control"></textarea>
 				</div>
-				<input type="text" name="id" >
+				<input type="hidden" id="id" name="id" >
 			<a data-dismiss="modal" class="closeModal"></a>
 		 	 &nbsp;
 		  <input type="submit" value="UPDATE" class="createBtn text-warning">
@@ -125,5 +120,24 @@
  
   <!-- =================================END MODEL UPDATE==================================================== -->
 
+  <script>
+	$(document).ready(function(){
+		
+		$('.editPizza').on('click',function(){
+			$('#updatePizza');
+			$tr = $(this).closest('tr');
+			var data = $tr.children('td').map(function(){
+				return $(this).text();
+			}).get();
+
+			
+			$('#id').val(data[0]);
+			$('#pname').val(data[1]);
+			$('#pingredients').val(data[2]);
+			$('#pprize').val(data[3]);
+
+		});
+	});
+</script>
 
   <?= $this->endSection() ?>

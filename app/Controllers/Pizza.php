@@ -44,17 +44,23 @@ class Pizza extends BaseController
 	
 	public function deletePizza($id)
 	{
-		$model = new PizzaModel();
-		$model->find($id);
-		$delete = $model->delete($id);
+		$deleteModel = new PizzaModel();
+		$deleteModel->find($id);
+		$delete = $deleteModel->delete($id);
 		return redirect()->to('/dashboard');
 	}
 
 	
 	public function editPizza($id)
 	{
-		$model = new PizzaModel();
-		$data['edit'] = $model->find($id);
+		$modelEdit = new PizzaModel();
+		$data['edit'] = $modelEdit->find($id);
 		return view('edit',$data);
+	}
+	public function updatePeperoni()
+	{
+		$peperoniModel = new PizzaModel();
+			$peperoniModel->update($_POST['id'], $_POST);
+			return redirect()->to('/dashboard');
 	}
 }
