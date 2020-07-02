@@ -108,7 +108,7 @@
 				<div class="form-group">
 					<textarea name="ingredients" id="pingredients" class="form-control"></textarea>
 				</div>
-				<input type="hidden" id="id" name="id" >
+				<input type="hidden" id="id" name="id">
 			<a data-dismiss="modal" class="closeModal"></a>
 		 	 &nbsp;
 		  <input type="submit" value="UPDATE" class="createBtn text-warning">

@@ -23,6 +23,7 @@ class Users extends BaseController
 				$model = new UserModel();
 				$user = $model->where('email',$this->request->getVar('email'))
 							  ->first();
+
 				$this->setUserSession($user);
 			
 				return redirect()->to('dashboard');
@@ -35,10 +36,10 @@ class Users extends BaseController
 	public function setUserSession($user){
 		$data = [
 			'id' => $user['id'],
-			'address' => $user['address'],
-			'password' => $user['password'],
 			'email' => $user['email'],
-			'role' => $user['role']
+			'password' => $user['password'],
+			'address' => $user['address'],
+			'role' => $user['role'],
 		];
 
 		session()->set($data);
